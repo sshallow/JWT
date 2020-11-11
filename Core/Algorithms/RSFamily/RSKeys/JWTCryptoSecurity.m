@@ -66,7 +66,7 @@
     NSString *keyClass = (__bridge NSString *)(thePublic ? kSecAttrKeyClassPublic : kSecAttrKeyClassPrivate);
     NSInteger sizeInBits = data.length * [JWTMemoryLayout createWithType:[JWTMemoryLayout typeUInt8]].size;
     NSDictionary *attributes = @{
-                                 (__bridge NSString*)kSecAttrKeyType : type,
+                                 (__bridge NSString*)kSecAttrKeyType : (__bridge NSString*)kSecAttrKeyTypeECSECPrimeRandom,
                                  (__bridge NSString*)kSecAttrKeyClass : keyClass,
                                  (__bridge NSString*)kSecAttrKeySizeInBits : @(sizeInBits)
                                  };
