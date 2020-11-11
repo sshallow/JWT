@@ -71,9 +71,15 @@
                                  (__bridge NSString*)kSecAttrKeySizeInBits : @(sizeInBits)
                                  };
     
+    NSMutableDictionary *options = [NSMutableDictionary dictionary];
+       options[(__bridge id)kSecAttrKeyType] = (__bridge id) kSecAttrKeyTypeECSECPrimeRandom;
+       options[(__bridge id)kSecAttrKeyClass] = (__bridge id) kSecAttrKeyClassPrivate;
+       NSNumber *size = @2048;
+       options[(__bridge id)kSecAttrKeySizeInBits] = size;
+    NSLog(@"***** options: %@ *****",options);
     if (@available(macOS 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)) {
         CFErrorRef createError = NULL;
-        SecKeyRef key = SecKeyCreateWithData((__bridge CFDataRef)data, (__bridge CFDictionaryRef)attributes, &createError);
+        SecKeyRef key = SecKeyCreateWithData((__bridge CFDataRef)data, (__bridge CFDictionaryRef)options, &createError);
         if (error && createError != NULL) {
             *error = (__bridge NSError*)createError;
         }
